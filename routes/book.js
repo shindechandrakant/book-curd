@@ -1,6 +1,15 @@
-import { Router } from "express";
-const router = Router();
+import express from "express";
+import { createBook, getBookById } from "../controllers/book.js";
+const router = express.Router();
 
+///api/v1/
 
+router.get("/book", (req, res) =>
+  res.status(200).json({
+    msg: "OK3",
+  })
+);
 
-export {router as bookRoute}
+router.post("/book", createBook);
+
+export { router as bookRoute };
