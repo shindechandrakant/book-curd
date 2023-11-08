@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-const { Schema, Model } = mongoose;
+import { client } from "../db/dbConnection.js";
+import { Schema } from "mongoose";
 import { nanoid } from "nanoid";
 
 const bookSchema = new Schema({
@@ -25,6 +25,7 @@ const bookSchema = new Schema({
     type: String,
     max: 1000,
     trim: true,
+    required: true,
   },
   publication: {
     type: String,
@@ -46,4 +47,6 @@ const bookSchema = new Schema({
   },
 });
 
-const bookModel = Model("Book", bookSchema);
+const BookModel = client.model("Book", bookSchema);
+
+export { BookModel };
