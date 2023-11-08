@@ -1,12 +1,10 @@
 import { client } from "../db/dbConnection.js";
 import { Schema } from "mongoose";
-import { nanoid } from "nanoid";
 
 const bookSchema = new Schema({
   _id: {
     type: String,
     required: true,
-    default: nanoid(10),
   },
   ISBN_NO: {
     type: String,
