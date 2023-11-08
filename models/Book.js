@@ -34,7 +34,6 @@ const bookSchema = new Schema({
   },
   bookPublishedDate: {
     type: Date,
-    default: Date.now,
   },
   documentCreatedAt: {
     type: Date,

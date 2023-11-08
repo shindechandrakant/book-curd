@@ -4,13 +4,21 @@ import {
   getBookById,
   getAllBooks,
   deleteBookById,
+  updateBookById,
 } from "../controllers/book.js";
 const router = express.Router();
 
-///api/v1/
+// get
 router.get("/books", getAllBooks);
 router.get("/book/:bookId", getBookById);
+
+// delete
 router.delete("/book/:bookId", deleteBookById);
+
+// update
+router.put("/book/:bookId", updateBookById);
+
+// post
 router.post("/book", createBook);
 
 export { router as bookRoute };

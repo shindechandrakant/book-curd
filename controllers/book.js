@@ -99,7 +99,7 @@ const updateBookById = async (req, res) => {
     bookPublishedDate,
   } = req.body;
 
-  const book = new BookModel({
+  const updatedBook = new BookModel({
     _id: bookId,
     ISBN_NO: ISBN_NO,
     bookName: bookName,
@@ -109,6 +109,26 @@ const updateBookById = async (req, res) => {
     bookLastModifiedDate: bookLastModifiedDate,
     bookPublishedDate: bookPublishedDate,
   });
+
+  try {
+    const updatedResult = await BookModel.findByIdAndUpdate(
+      { _id: bookId },
+      updatedBook,
+      {
+        new: true,
+      }
+    );
+    return res.status(200).json({
+      message: "Book updated Successfully",
+      updatedResult,
+    });
+  } catch (error) {
+    console.error(`Got error while updating Book. \n Error: ${error.message}`);
+    return res.status(500).json({
+      message: "Unable to update Book",
+      error: error.message,
+    });
+  }
 };
 
 const deleteBookById = async (req, res) => {
