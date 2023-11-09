@@ -40,13 +40,13 @@
 
 ### API Endpoints
 
-```json
+```js
     BASE_URL= http://localhost:7000
 ```
 
 1. To Create a new book use following end point
 
-   ```json
+   ```js
        method - POST
        URL- {{BASE_URL}}/api/v1/book
        body - json body
@@ -78,7 +78,7 @@
 
 2. To get a specific book using id Endpoint
 
-   ```json
+   ```js
        method - GET
        URL- {{BASE_URL}}/api/v1/book/{{BookId}}
        body - none
@@ -108,7 +108,7 @@
 
 3. To get a list of book
 
-   ```json
+   ```js
        method - GET
        URL- {{BASE_URL}}/api/v1/books
        body - none
@@ -139,7 +139,7 @@
 
 4. To Create a update book using bookId endPoint
 
-   ```json
+   ```js
        method - PUT
        URL- {{BASE_URL}}/api/v1/book/{{BookId}}
        body - json body
@@ -171,7 +171,7 @@
 
 5. To delete book using bookId endPoint
 
-   ```json
+   ```js
        method - DELETE
        URL- {{BASE_URL}}/api/v1/book/{{BookId}}
        body - none
