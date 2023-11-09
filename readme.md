@@ -44,6 +44,10 @@
     BASE_URL= http://localhost:7000
 ```
 
+```curl
+    There is postman collectio file named Book.postman_collection.json in root folder. export it into Postman to use endpoints
+```
+
 1. To Create a new book use following end point
 
    ```js
