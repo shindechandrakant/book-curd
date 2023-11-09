@@ -120,7 +120,7 @@ const updateBookById = async (req, res) => {
     );
     return res.status(200).json({
       message: "Book updated Successfully",
-      updatedResult,
+      book: updatedResult,
     });
   } catch (error) {
     console.error(`Got error while updating Book. \n Error: ${error.message}`);
