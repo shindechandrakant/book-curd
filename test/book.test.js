@@ -42,7 +42,6 @@ describe("Book API tests", (done) => {
       });
   });
 
-  console.log({ bookId });
   it("2. should get a book of the provide book Id", (done) => {
     request(BASE_URL)
       .get(`book/${bookId}`)

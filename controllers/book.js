@@ -3,6 +3,9 @@ import {
   getBookByIdUtil,
   saveModelInDbUtil,
   getAllBooksUtil,
+  doesBookExistUtil,
+  updateBookDetailUtil,
+  deleteBookByIdUtil,
 } from "../utils/book.js";
 import { nanoid } from "nanoid";
 
@@ -81,7 +84,7 @@ const updateBookById = async (req, res) => {
     });
   }
 
-  const doesBookExit = await BookModel.exists({ _id: bookId });
+  const doesBookExit = await doesBookExistUtil(bookId);
 
   if (!doesBookExit) {
     return res.status(404).json({
@@ -111,13 +114,7 @@ const updateBookById = async (req, res) => {
   });
 
   try {
-    const updatedResult = await BookModel.findByIdAndUpdate(
-      { _id: bookId },
-      updatedBook,
-      {
-        new: true,
-      }
-    );
+    const updatedResult = await updateBookDetailUtil(updatedBook);
     return res.status(200).json({
       message: "Book updated Successfully",
       book: updatedResult,
@@ -140,7 +137,7 @@ const deleteBookById = async (req, res) => {
     });
   }
 
-  const doesBookExit = await BookModel.exists({ _id: bookId });
+  const doesBookExit = await doesBookExistUtil(bookId);
   if (!doesBookExit) {
     return res.status(404).json({
       message: `Book for id : ${bookId} dosen't exist`,
@@ -148,7 +145,7 @@ const deleteBookById = async (req, res) => {
   }
 
   try {
-    await BookModel.findOneAndDelete({ _id: bookId });
+    await deleteBookByIdUtil(bookId);
     return res.status(204).json({});
   } catch (err) {
     return res.status(500).json({
