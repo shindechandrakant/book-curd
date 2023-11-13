@@ -95,4 +95,82 @@ describe("Book API tests", (done) => {
         done();
       });
   });
+
+  it("5. should return a list of books", (done) => {
+    request(BASE_URL)
+      .get("/books")
+      .end((err, res) => {
+        expect(res.body).not.to.be.null;
+        expect(res.statusCode).to.be.equal(200);
+        expect(res.body.books).not.to.be.null;
+        const body = res.body.books;
+        expect(Array.isArray(body)).to.be.equal(true);
+        if (err) throw err;
+        done();
+      });
+  });
+
+  it("6. should return list of books & all books should have a properties", (done) => {
+    request(BASE_URL)
+      .get("/books")
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(200);
+        const books = res.body.books;
+        books.forEach((book) => {
+          expect(book).haveOwnProperty("_id");
+          expect(book).haveOwnProperty("ISBN_NO");
+          expect(book).haveOwnProperty("bookName");
+          expect(book).haveOwnProperty("authorName");
+          expect(book).haveOwnProperty("summary");
+          expect(book).haveOwnProperty("publication");
+          expect(Array.isArray(book.authorName)).to.be.equal(true);
+          expect(book.authorName.length).to.be.greaterThan(0);
+        });
+        if (err) throw err;
+        done();
+      });
+  });
+});
+
+describe("Book API Edge Case tests", () => {
+  const fakeBookId = "chandrakant";
+
+  it("1. should return 404 on get book by id if not exist id passed", (done) => {
+    const message = `Book for id : ${fakeBookId} dosen't exist`;
+
+    request(BASE_URL)
+      .get(`book/${fakeBookId}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(404);
+        expect(res.body.message).to.be.equal(message);
+        if (err) throw err;
+        done();
+      });
+  });
+
+  it("2. should return 404 on delete book by id if not exist id passed", (done) => {
+    const message = `Book for id : ${fakeBookId} dosen't exist`;
+
+    request(BASE_URL)
+      .delete(`book/${fakeBookId}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(404);
+        expect(res.body.message).to.be.equal(message);
+        if (err) throw err;
+        done();
+      });
+  });
+
+  it("3. should return 404 on update book by id if not exist id passed", (done) => {
+    const message = `Book for id : ${fakeBookId} dosen't exist`;
+    request(BASE_URL)
+      .put(`book/${fakeBookId}`)
+      .send(updateBookData)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(404);
+        expect(res.body.message).to.be.equal(message);
+        if (err) throw err;
+        done();
+      });
+  });
 });
