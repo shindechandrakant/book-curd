@@ -96,3 +96,46 @@ describe("Book API tests", (done) => {
       });
   });
 });
+
+describe("Book API Edge Case tests", () => {
+  const fakeBookId = "chandrakant";
+
+  it("1. should return 404 on get book by id if not exist id passed", (done) => {
+    const message = `Book for id : ${fakeBookId} dosen't exist`;
+
+    request(BASE_URL)
+      .get(`book/${fakeBookId}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(404);
+        expect(res.body.message).to.be.equal(message);
+        if (err) throw err;
+        done();
+      });
+  });
+
+  it("2. should return 404 on delete book by id if not exist id passed", (done) => {
+    const message = `Book for id : ${fakeBookId} dosen't exist`;
+
+    request(BASE_URL)
+      .delete(`book/${fakeBookId}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(404);
+        expect(res.body.message).to.be.equal(message);
+        if (err) throw err;
+        done();
+      });
+  });
+
+  it("3. should return 404 on update book by id if not exist id passed", (done) => {
+    const message = `Book for id : ${fakeBookId} dosen't exist`;
+    request(BASE_URL)
+      .put(`book/${fakeBookId}`)
+      .send(updateBookData)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(404);
+        expect(res.body.message).to.be.equal(message);
+        if (err) throw err;
+        done();
+      });
+  });
+});
