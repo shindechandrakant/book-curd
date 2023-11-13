@@ -95,6 +95,41 @@ describe("Book API tests", (done) => {
         done();
       });
   });
+
+  it("5. should return a list of books", (done) => {
+    request(BASE_URL)
+      .get("/books")
+      .end((err, res) => {
+        expect(res.body).not.to.be.null;
+        expect(res.statusCode).to.be.equal(200);
+        expect(res.body.books).not.to.be.null;
+        const body = res.body.books;
+        expect(Array.isArray(body)).to.be.equal(true);
+        if (err) throw err;
+        done();
+      });
+  });
+
+  it("6. should return list of books & all books should have a properties", (done) => {
+    request(BASE_URL)
+      .get("/books")
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(200);
+        const books = res.body.books;
+        books.forEach((book) => {
+          expect(book).haveOwnProperty("_id");
+          expect(book).haveOwnProperty("ISBN_NO");
+          expect(book).haveOwnProperty("bookName");
+          expect(book).haveOwnProperty("authorName");
+          expect(book).haveOwnProperty("summary");
+          expect(book).haveOwnProperty("publication");
+          expect(Array.isArray(book.authorName)).to.be.equal(true);
+          expect(book.authorName.length).to.be.greaterThan(0);
+        });
+        if (err) throw err;
+        done();
+      });
+  });
 });
 
 describe("Book API Edge Case tests", () => {
