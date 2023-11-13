@@ -35,8 +35,33 @@
      ```
          npm test
      ```
+     note: keep server running
 
 ##
+
+### Test Cases
+
+```js
+    PASS  test/book.test.js
+    Book API tests
+        √ 1. should create a book (361 ms)
+        √ 2. should get a book of the provide book Id (258 ms)
+        √ 3. should update a book & return a updated book values (485 ms)
+        √ 4. should delete a book (482 ms)
+        √ 5. should return a list of books (236 ms)
+        √ 6. should return list of books & all books should have a properties (249 ms)
+    Book API Edge Case tests
+        √ 1. should return 404 on get book by id if not exist id passed (242 ms)
+        √ 2. should return 404 on delete book by id if not exist id passed (244 ms)
+        √ 3. should return 404 on update book by id if not exist id passed (253 ms)
+
+    Test Suites: 1 passed, 1 total
+    Tests:       9 passed, 9 total
+    Snapshots:   0 total
+    Time:        3.94 s, estimated 9 s
+    Ran all test suites.
+
+```
 
 ### API Endpoints
 
